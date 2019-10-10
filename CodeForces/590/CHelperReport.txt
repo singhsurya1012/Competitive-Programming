@@ -1,2 +1,0 @@
-48 src/codes/F - Yet Another Substring Reverse.json
-0
