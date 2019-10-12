@@ -1,128 +1,87 @@
 package codechef.problems;
 
 import java.io.PrintWriter;
-import java.util.HashSet;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.TreeSet;
 
 public class MSNG {
 
-    public static void solve(Scanner sc, PrintWriter writer) {
+    private static long threshold = (long) Math.pow(10, 12);
+
+    private static void solve(Scanner sc, PrintWriter writer) {
 
         int testCases = sc.nextInt();
 
-        while (testCases-- > 0) {
+        for (int i = 1; i <= testCases; i++) {
 
-            int noOfQueries = sc.nextInt();
+            int N = sc.nextInt();
 
-            Set<Long> decimalNumberSet = new TreeSet<>();
-            Set<String> inputs = new HashSet<>();
+            Set<Long> allPossibleValues = new TreeSet<>();
 
-            while (noOfQueries-- > 0) {
+            int base = sc.nextInt();
+            String value = sc.next();
 
-                int base = sc.nextInt();
-                String value = sc.next();
+            findValues(allPossibleValues, base, value);
 
-                if (base != -1) {
-                    long decimalValue = toDecimal(value, base);
-                    long maxAllowed = 1000000000000l;
+            for (int j = 2; j <= N; j++) {
 
-                    if (decimalValue <= maxAllowed) {
-                        decimalNumberSet.add(toDecimal(value, base));
-                    }
+                base = sc.nextInt();
+                value = sc.next();
 
-                } else {
-                    inputs.add(value);
+                Set<Long> possibleValues = new TreeSet<>();
+
+                if (allPossibleValues.size() > 0) {
+                    findValues(possibleValues, base, value);
+                    allPossibleValues.retainAll(possibleValues);
                 }
+
             }
 
-            if (decimalNumberSet.size() == 0) {
-                writer.println(-1);
-            } else if (decimalNumberSet.size() == 1) {
-
-                long decimalValue = decimalNumberSet.iterator().next();
-
-                long value = checkIfConversionPossible(decimalValue, inputs);
-                writer.println(value);
+            if (allPossibleValues.size() > 0) {
+                writer.println(allPossibleValues.iterator().next());
             } else {
-                int x = 6 / 0;
                 writer.println(-1);
             }
 
         }
 
-        writer.flush();
     }
 
-    private static long checkIfConversionPossible(long decimalValue, Set<String> inputs) {
-
-        int radix = 36;
-        radix = (int) Long.min(radix, decimalValue);
-        while (radix > 1) {
-
-            String convertedValue = fromDecimal(radix, decimalValue);
-            inputs.remove(convertedValue);
-
-            if (inputs.size() == 0) {
-                return decimalValue;
+    private static void findValues(Set<Long> allPossibleValues, int base, String value) {
+        try {
+            if (base == -1) {
+                allPossibleValues.addAll(addAllPossibleDecimalValues(value));
+            } else {
+                long decimalValue = Long.parseLong(value, base);
+                if (decimalValue >= 0 && decimalValue <= threshold)
+                    allPossibleValues.add(decimalValue);
             }
-            radix--;
+        } catch (Exception e) {
+
         }
-
-        if (inputs.size() != 0)
-            return -1;
-
-        return decimalValue;
     }
 
+    private static Set<Long> addAllPossibleDecimalValues(String value) {
 
-    private static int val(char c) {
-        if (c >= '0' && c <= '9')
-            return (int) c - '0';
-        else
-            return (int) c - 'A' + 10;
-    }
+        Set<Long> possibleValues = new TreeSet<>();
 
+        for (int i = 36; i >= 2; i--) {
 
-    private static long toDecimal(String str, int base) {
-        int len = str.length();
-        long power = 1;
-        long num = 0;
+            try {
+                long convertedValue = Long.parseLong(value, i);
 
+                if (convertedValue >= 0 && convertedValue <= threshold)
+                    possibleValues.add(convertedValue);
 
-        for (int i = len - 1; i >= 0; i--) {
+            } catch (Exception e) {
 
-
-            if (val(str.charAt(i)) >= base) {
-                return -1;
             }
 
-            num += val(str.charAt(i)) * power;
-            power = power * base;
         }
 
-        return num;
+        return possibleValues;
     }
 
-    static char reVal(long num) {
-        if (num >= 0 && num <= 9)
-            return (char) (num + 48);
-        else
-            return (char) (num - 10 + 65);
-    }
 
-    static String fromDecimal(int base1, long inputNum) {
-        String s = "";
-
-        while (inputNum > 0) {
-            s += reVal(inputNum % base1);
-            inputNum /= base1;
-        }
-        StringBuilder ix = new StringBuilder();
-
-        ix.append(s);
-
-        return new String(ix.reverse());
-    }
 }
