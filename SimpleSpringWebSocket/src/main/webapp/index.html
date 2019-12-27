@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+
+</head>
+<body ><!-- onload="myFunction()" -->
+    <div>
+        <h1>WebSocket Connection</h1>
+        <input type=submit value="Connect" id="connect" onclick="connect()" />
+        <input type=submit value="Disconnect" id="disconnect"
+            onclick="disconnect()" disabled="disabled" />
+    </div>
+
+
+    <div>
+        <fieldset id="fieldset" disabled="disabled">
+            <legend>Welcome User</legend>
+            <input type="text" id="name" placeholder="Enter Your Name" > <input
+                type="submit" value="Send" onclick="send()" >
+        </fieldset>
+
+        <fieldset>
+            <legend>Messages</legend>
+            <p id="msg"></p>
+        </fieldset>
+    </div>
+
+
+<script type="text/javascript" src="app.js"></script>
+</body>
+</html>
