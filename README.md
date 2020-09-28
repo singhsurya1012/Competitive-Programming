@@ -1,2 +1,2 @@
 # Competitive-Programming
-Repository for all Competitive programming solutions solved till date
+Repository for all Competitive programming  and practice questions solved till date
