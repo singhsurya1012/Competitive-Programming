@@ -5,6 +5,8 @@ import java.util.Map;
 
 public class TwoSum {
 
+    //Time Complexity : O(N)
+    //Space Complexity : O(N)
     public int[] twoSum(int[] nums, int target) {
         //Set can be used which is internally a hashmap anyway
         Map<Integer, Integer> map = new HashMap<>(nums.length);
