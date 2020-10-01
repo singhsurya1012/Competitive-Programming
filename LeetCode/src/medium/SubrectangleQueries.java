@@ -15,7 +15,6 @@ public class SubrectangleQueries {
                 this.rectangle[i][j] = newValue;
             }
         }
-
     }
 
     //Get the value of (row,col) in rectangle
