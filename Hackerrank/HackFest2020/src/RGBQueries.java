@@ -47,8 +47,9 @@ public class RGBQueries {
 
         }
 
-        for (List<Integer> q : queries) {
+        Map<String, String> solvedQueries = new HashMap<>();
 
+        for (List<Integer> q : queries) {
 
             boolean redMatch = false;
             boolean blueMatch = false;
@@ -58,8 +59,16 @@ public class RGBQueries {
             int blue = q.get(1);
             int green = q.get(2);
 
+            String queryKey = red + ":" + blue + ":" + green;
+
+            if (solvedQueries.containsKey(queryKey)) {
+                l.add(solvedQueries.get(queryKey));
+                continue;
+            }
+
             if (!redMap.containsKey(red) || !blueMap.containsKey(blue) || !greenMap.containsKey(green)) {
                 l.add("NO");
+                solvedQueries.put(queryKey, "NO");
                 continue;
             }
 
@@ -76,9 +85,11 @@ public class RGBQueries {
 
             if (!redMatch) {
                 l.add("NO");
+                solvedQueries.put(queryKey, "NO");
                 continue;
             } else if (blueMatch && greenMatch) {
                 l.add("YES");
+                solvedQueries.put(queryKey, "YES");
                 continue;
             }
 
@@ -93,9 +104,11 @@ public class RGBQueries {
 
             if (!blueMatch) {
                 l.add("NO");
+                solvedQueries.put(queryKey, "NO");
                 continue;
             } else if (greenMatch) {
                 l.add("YES");
+                solvedQueries.put(queryKey, "YES");
                 continue;
             }
 
@@ -108,10 +121,12 @@ public class RGBQueries {
                 }
             }
 
-            if (greenMatch) {
-                l.add("YES");
-            } else {
+            if (!greenMatch) {
                 l.add("NO");
+                solvedQueries.put(queryKey, "NO");
+            } else {
+                l.add("YES");
+                solvedQueries.put(queryKey, "YES");
             }
 
         }
