@@ -12,7 +12,8 @@ public class RemoveDuplicatesFromSortedArray {
             //Increment the writeIndex Index and copy the value
             if (nums[writeIndex] != nums[readIndex]) {
                 writeIndex++;
-                nums[writeIndex] = nums[readIndex];
+                if(writeIndex!=readIndex)
+                    nums[writeIndex] = nums[readIndex];
             }
         }
         return writeIndex + 1;
