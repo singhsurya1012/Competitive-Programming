@@ -47,7 +47,6 @@ public class ValidSuduko {
                 if (box.get(boxIndex).contains(s))
                     return false;
                 box.get(boxIndex).add(s);
-
             }
         }
 
