@@ -36,9 +36,6 @@ public class FindTheMergePointOfTwoJointLinkedList {
             }
 
         }
-
         return a.data;
-
-
     }
 }
