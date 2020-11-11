@@ -17,7 +17,7 @@ public class PoisonousPlants {
         stack.push(0);
 
         for (int i = 1; i < n; i++) {
-            //If the current val greater than the stack top
+            //:If the current val greater than the stack top
             //It will be killed on the first day
             if (p[stack.peek()] < p[i]) {
                 killedOnDay[i] = 1;
