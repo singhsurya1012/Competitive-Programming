@@ -1,6 +1,6 @@
 package medium;
 
-public class FindTheDupllicateNumber {
+public class FindTheDuplicateNumber {
 
     public int findDuplicate(int[] nums) {
 
