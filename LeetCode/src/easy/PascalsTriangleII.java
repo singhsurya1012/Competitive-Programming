@@ -25,4 +25,32 @@ public class PascalsTriangleII {
         }
         return triangle;
     }
+
+
+
+    public List<Integer> getRowBinomialExpansion(int rowIndex) {
+        //nth Row Pascals triangle contains n-1C0 + n-1C1 + n-2C2 +.... n-1Cn-1
+        //nCr === nCr-1 *(n-(r-1)/r
+
+        int n = rowIndex+1;
+
+        List<Integer> list = new ArrayList<>(n);
+
+        list.add(1);
+
+        //Nth row contains n elements
+        for(int i=1; i<n; i++){
+
+            //Get the previous value in long since it can overflow
+            long val = list.get(i-1);
+
+            val = val *(n-i);
+            val = val/i;
+
+            list.add((int)val);
+        }
+
+        return list;
+
+    }
 }
