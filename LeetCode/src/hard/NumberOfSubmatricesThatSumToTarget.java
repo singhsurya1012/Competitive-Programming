@@ -1,8 +1,42 @@
 package hard;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class NumberOfSubmatricesThatSumToTarget {
 
     public int numSubmatrixSumTarget(int[][] matrix, int target) {
+
+        int m = matrix.length;
+        int n = matrix[0].length;
+
+        int[][] sum = new int[m][n];
+        fillSum(matrix,sum,m,n);
+        int count  = 0;
+
+        for(int r1=0; r1<m; r1++){
+            for(int r2=r1; r2<m;r2++){
+
+                Map<Integer,Integer> map = new HashMap<>();
+                map.put(0,1);
+                int s = 0;
+
+                for(int c=0; c<n;c++){
+                    s+=findSum(sum,r1,c,r2,c);
+                    if(map.containsKey(s-target)){
+                        count+=map.get(s-target);
+                    }
+
+                    map.put(s,map.getOrDefault(s,0)+1);
+                }
+            }
+        }
+
+        return count;
+
+    }
+
+    public int numSubmatrixSumTargetSlow(int[][] matrix, int target) {
 
         int m = matrix.length;
         int n = matrix[0].length;
