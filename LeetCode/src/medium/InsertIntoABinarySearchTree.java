@@ -1,6 +1,5 @@
 package medium;
 
-import sun.reflect.generics.tree.Tree;
 
 public class InsertIntoABinarySearchTree {
 
