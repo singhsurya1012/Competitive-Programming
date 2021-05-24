@@ -1,6 +1,19 @@
 package easy;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+
 public class NaryTreePreorderTraversal {
+
+    class Node {
+        int val;
+        List<Node> children;
+
+        public Node(int val) {
+            this.val = val;
+        }
+    }
 
     public List<Integer> preorder(Node root) {
 
