@@ -4,6 +4,69 @@ import java.util.*;
 
 public class OpenTheLock {
 
+    //If we know the starting position and the target then we can try to move in both the direction alternatively
+    public int openLockTwoWayBFS(String[] deadends, String target) {
+        Set<String> begin =new HashSet<>();
+        Set<String> dead = new HashSet<>();
+        Set<String> end = new HashSet<>();
+        Set<String> visited = new HashSet<>();
+
+        for(String s : deadends){
+            dead.add(s);
+        }
+
+        begin.add("0000");
+        visited.add("0000");
+        end.add(target);
+
+        int moves = 0;
+
+        Set<String> temp;
+        while(!begin.isEmpty() && !end.isEmpty()){
+
+            if (begin.size() > end.size()) {
+                temp = begin;
+                begin = end;
+                end = temp;
+            }
+
+            temp = new HashSet<>();
+            for(String s: begin){
+
+                if(end.contains(s))
+                    return moves;
+
+                if(dead.contains(s))
+                    continue;
+
+                visited.add(s);
+
+                StringBuilder sb = new StringBuilder(s);
+                for(int i=0;i<4;i++){
+
+                    char c = sb.charAt(i);
+                    String forward = sb.substring(0,i) + (c=='9'?0:c-'0'+1) + sb.substring(i+1);
+                    String backward = sb.substring(0,i) + (c=='0'?9:c-'0'-1)  + sb.substring(i+1);
+
+
+                    if(!dead.contains(forward) && !visited.contains(forward)){
+                        temp.add(forward);
+                    }
+
+                    if(!dead.contains(backward) && !visited.contains(backward)){
+                        //Important difference is we cannot mark this as visited since we might be traversing from other end
+                        temp.add(backward);
+                    }
+                }
+            }
+
+            begin = temp;
+            moves++;
+        }
+
+        return -1;
+    }
+
     public int openLock(String[] deadends, String target) {
 
         //Creating a hashset to check if its a dead in constant time
