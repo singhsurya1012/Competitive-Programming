@@ -1,6 +1,8 @@
 package medium;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConstructBinaryTreeFromPreorderAndPostorderTraversal {
 
@@ -23,7 +25,39 @@ public class ConstructBinaryTreeFromPreorderAndPostorderTraversal {
         }
     }
 
+
+    Map<Integer,Integer> map = new HashMap<>();
     public TreeNode constructFromPrePost(int[] pre, int[] post) {
+
+        for(int i=0; i<post.length;i++){
+            map.put(post[i], i);
+        }
+
+
+        return constructTree(pre, 0, pre.length-1, 0, post.length-1);
+    }
+
+    public TreeNode constructTree(int[] preorder,int ps, int pe, int pos, int poe){
+
+        if(ps>pe|| pos>poe)
+            return null;
+
+        TreeNode node = new TreeNode(preorder[ps]);
+
+        if(ps+1<=pe){
+            ps++;
+            int i = map.get(preorder[ps]);
+            int len = i-pos+1;
+
+            node.left = constructTree(preorder, ps,ps+len-1 , pos, i);
+            node.right = constructTree(preorder,ps+len,pe, i+1,pe-1);
+
+        }
+
+        return node;
+    }
+
+    public TreeNode constructFromPrePostSlow(int[] pre, int[] post) {
 
         int N = pre.length;
         if (N == 0) {
