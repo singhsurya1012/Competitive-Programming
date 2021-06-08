@@ -26,30 +26,32 @@ public class ConstructBinaryTreeFromInorderAndPreorderTraversal {
     }
 
     Map<Integer,Integer> inOrderIndexMap = new HashMap<>();
-    int preOrderIndex;
     public TreeNode buildTree(int[] preorder, int[] inorder) {
 
-        preOrderIndex = 0;
+        int preOrderIndex = 0;
 
         for(int i=0;i<inorder.length;i++){
             inOrderIndexMap.put(inorder[i],i);
         }
 
-        return constructTree(preorder,0, inorder.length-1);
+        return constructTree(preorder,0,preorder.length-1, 0, inorder.length-1);
     }
 
 
-    public TreeNode constructTree(int[] preOrder, int left, int right){
+    public TreeNode constructTree(int[] preOrder,int ps,int pe, int is, int ie){
 
-        if(left>right)
+        if(is>ie || ps>pe)
             return null;
 
 
-        int val = preOrder[preOrderIndex++];
+        int val = preOrder[ps++];
         TreeNode node = new TreeNode(val);
 
-        node.left = constructTree(preOrder, left,inOrderIndexMap.get(val)-1);
-        node.right = constructTree(preOrder,inOrderIndexMap.get(val)+1,right);
+        int i = inOrderIndexMap.get(val);
+        int len = i-is;
+
+        node.left = constructTree(preOrder, ps,ps+len-1, is,i-1);
+        node.right = constructTree(preOrder, ps+len, pe, i+1, ie);
 
         return node;
     }

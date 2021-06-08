@@ -1,6 +1,8 @@
 package medium;
 
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
 
@@ -24,7 +26,35 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
     }
 
 
+    Map<Integer,Integer> map = new HashMap<>();
     public TreeNode buildTree(int[] inorder, int[] postorder) {
+
+        for(int i=0; i<inorder.length; i++){
+            map.put(inorder[i],i);
+        }
+
+        return constructTree( 0, inorder.length-1, postorder, 0, postorder.length-1);
+    }
+
+
+    public TreeNode constructTree(int is, int ie, int[] postorder, int ps,int pe){
+
+        if(ps>pe || is>ie)
+            return null;
+
+        TreeNode node = new TreeNode(postorder[pe]);
+
+        int i = map.get(postorder[pe]);
+        int len = i-is;
+
+        node.left = constructTree( is, i-1, postorder, ps, ps+len-1);
+        node.right = constructTree( i+1, ie, postorder, ps+len,pe-1);
+
+        return node;
+    }
+
+
+    public TreeNode buildTreeSlow(int[] inorder, int[] postorder) {
         int N = inorder.length;
 
         if (N == 0) {
@@ -46,10 +76,10 @@ public class ConstructBinaryTreeFromInorderAndPostorderTraversal {
         }
 
 
-        root.left = buildTree(Arrays.copyOfRange(inorder, 0, L),
+        root.left = buildTreeSlow(Arrays.copyOfRange(inorder, 0, L),
                 Arrays.copyOfRange(postorder, 0, L));
 
-        root.right = buildTree(Arrays.copyOfRange(inorder, L + 1, N),
+        root.right = buildTreeSlow(Arrays.copyOfRange(inorder, L + 1, N),
                 Arrays.copyOfRange(postorder, L, N - 1));
 
 
