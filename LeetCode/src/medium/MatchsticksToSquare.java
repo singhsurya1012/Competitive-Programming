@@ -36,10 +36,8 @@ public class MatchsticksToSquare {
             return false;
 
         for(int i=pos; i>=0;i--){
-
             int l = m[pos];
             return (checkIfPossible(m, pos-1,a+l,b,c,d,len) || checkIfPossible(m, pos-1,a,b+l,c,d,len) ||  checkIfPossible(m, pos-1,a,b,c+l,d,len) || checkIfPossible(m, pos-1,a,b,c,d+l,len));
-
         }
 
         return false;
