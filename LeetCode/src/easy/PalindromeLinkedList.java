@@ -13,6 +13,39 @@ public class PalindromeLinkedList {
         }
     }
 
+    public boolean isPalindromeSimple(ListNode head) {
+
+
+        if(head==null || head.next==null)
+            return true;
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }
+
+        slow.next = reverseList(slow.next);
+
+        ListNode a = head;
+        ListNode b = slow.next;
+
+        while(b!=null){
+
+            if(a.val!=b.val)
+                return false;
+
+            a = a.next;
+            b = b.next;
+        }
+
+        slow.next = reverseList(slow.next);
+        return true;
+
+    }
+
     public boolean isPalindrome(ListNode head) {
 
         if (head == null || head.next == null) {
@@ -96,5 +129,20 @@ public class PalindromeLinkedList {
         //Else one list reached the end first
         return false;
 
+    }
+
+    public ListNode reverseList(ListNode node){
+
+        ListNode prev = null;
+        ListNode next = null;
+
+        while(node!=null){
+            next = node.next;
+            node.next = prev;
+            prev = node;
+            node = next;
+        }
+
+        return prev;
     }
 }
