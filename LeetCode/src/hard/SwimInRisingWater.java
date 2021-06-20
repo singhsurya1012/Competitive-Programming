@@ -1,5 +1,8 @@
 package hard;
 
+import java.util.PriorityQueue;
+import java.util.Queue;
+
 public class SwimInRisingWater {int[][] dir = new int[][]{{-1, 0}, {1, 0}, {0, 1}, {0, -1}};
     boolean[][] visited;
 
