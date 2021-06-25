@@ -1,12 +1,14 @@
 package medium;
 
+import java.util.*;
+
 public class RedundantConnection {
 
     Set<Integer> visited = new HashSet<>();
     public int[] findRedundantConnection(int[][] edges) {
 
         int n = edges.length;
-        Map<Integer,List<Integer>> map = new HashMap<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
         for(int i=1;i<=n;i++){
             map.put(i, new LinkedList<Integer>());
         }
