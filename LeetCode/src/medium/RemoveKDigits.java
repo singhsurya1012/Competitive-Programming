@@ -9,15 +9,15 @@ public class RemoveKDigits {
 
         int n = num.length();
 
-        if(k>=n)
+        if (k >= n)
             return "0";
 
         Stack<Character> stack = new Stack<>();
 
-        for(int i=0; i<n ;i++){
+        for (int i = 0; i < n; i++) {
 
             //Remove peeks
-            while(!stack.isEmpty() && k>0 && stack.peek()>num.charAt(i)){
+            while (!stack.isEmpty() && k > 0 && stack.peek() > num.charAt(i)) {
                 stack.pop();
                 k--;
             }
@@ -26,7 +26,7 @@ public class RemoveKDigits {
 
 
         //Check if we have remove required k digits
-        while(k>0){
+        while (k > 0) {
             stack.pop();
             k--;
         }
@@ -34,18 +34,19 @@ public class RemoveKDigits {
 
         //Construct new num
         StringBuilder sb = new StringBuilder();
-        while(!stack.isEmpty()){
+        while (!stack.isEmpty()) {
             sb.append(stack.pop());
         }
         sb.reverse();
 
         //remove leading zeros
         int i = 0;
-        while(sb.length()>1 && sb.charAt(0)=='0'){
+        while (sb.length() > 1 && sb.charAt(0) == '0') {
             sb.deleteCharAt(0);
         }
 
         return sb.toString();
 
+    }
 
 }
