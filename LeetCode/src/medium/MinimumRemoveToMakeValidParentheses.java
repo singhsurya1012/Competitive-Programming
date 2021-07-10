@@ -1,5 +1,9 @@
 package medium;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
+
 public class MinimumRemoveToMakeValidParentheses {
 
     public String minRemoveToMakeValid(String s) {
