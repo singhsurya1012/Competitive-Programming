@@ -20,4 +20,14 @@ public class SingleNumber {
         return set.iterator().next();
 
     }
+
+    public int singleNumberBitManipulation(int[] nums) {
+
+        int n = 0;
+        for(int i: nums){
+            n = n^i;
+        }
+
+        return n;
+    }
 }
