@@ -42,8 +42,15 @@ public class GroupAnagrams {
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i= 0; i<arr.length; i++){
+        /*for(int i= 0; i<arr.length; i++){
             for(int j=0; j<arr[i];j++){
+                sb.append((char)(i+'a'));
+            }
+        }*/
+
+        for(int i=0;i<arr.length;i++){
+            if(arr[i]>0){
+                sb.append(arr[i]);
                 sb.append((char)(i+'a'));
             }
         }
