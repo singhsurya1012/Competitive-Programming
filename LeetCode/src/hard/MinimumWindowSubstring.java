@@ -54,7 +54,6 @@ public class MinimumWindowSubstring {
                 windowMap.put(c, windowMap.get(c)-1);
 
                 if(map.containsKey(c) &&  map.get(c).intValue()>windowMap.get(c).intValue()){
-                    System.out.println("Removing -  " + c  );
                     formed--;
                 }
 
