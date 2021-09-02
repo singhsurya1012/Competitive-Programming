@@ -26,4 +26,28 @@ public class UniqueBinarySearchTrees {
 
         return trees[n];
     }
+
+
+    public int numTreesCatalanNumber(int n) {
+
+        if(n==1 || n==2)
+            return n;
+
+        Map<Integer,Integer> map  = new HashMap<>();
+        map.put(0,1);
+        map.put(1,1);
+        map.put(2,2);
+
+        for(int i=3; i<=n;i++){
+            int ans = 0;
+            for(int j=0;j<=i-1;j++){
+                int k = i-1-j;
+                ans+=map.get(j)*map.get(k);
+            }
+
+            map.put(i,ans);
+        }
+
+        return map.get(n);
+    }
 }
